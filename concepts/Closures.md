@@ -98,15 +98,15 @@ console.log(addByTwo(2));  // returns 4
 //--------------------------------------------------
 
 function once(func) {
-  let result = 0;
-  let counter = 0;
+  let result;
+  let firstCall = true;
   function returnFunc(input) {
-    counter++;
-    if (counter > 1) {
+    if (firstCall) {
+      result = cb(input);
+      firstCall = false;
       return result;
     } else {
-      result = func(input);
-    	return result;
+      return result;
     }
   }
   
@@ -128,10 +128,10 @@ console.log(onceFunc(9001));  //should log 6
 ```js
 function after(count, func) {
   let counter = 0;
-  function innerCalled() {
+  function innerCalled(input) {
     counter++;
-    if (counter === count) {
-      func();
+    if (counter >= count) {
+      func(input);
     }
   }
   
@@ -153,7 +153,7 @@ afterCalled(); // -> 'hello' is printed
 ```js
 function delay(func, wait) {
   function callAfterDelay() {
-    this.setTimeout(func, wait);
+    setTimeout(func, wait);
   }
 
   return callAfterDelay;
