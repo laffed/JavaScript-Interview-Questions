@@ -7,7 +7,7 @@
 ```js
 function createFunction() {
   function hello() {
-    console.log("hello");
+    return "hello world";
   }
   
   return hello;
